@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Momentum</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="https://kit.fontawesome.com/e8cc19adee.js" crossorigin="anonymous"></script>
+    <script src="jquery-compressed.js"></script>
+</head>
+
+<body id="body">
+    <div class="container">
+
+        <header>
+            <div class="header-container">
+                <section class="header-left">
+                    <div class="links">
+                        <button id="links">Links</button>
+                        <div class="links-dropdown">
+                            <ul>
+                                <li><a href="chrome-search://local-ntp/local-ntp.html">
+                                        <div>
+                                            Chrome Tab
+                                        </div>
+                                    </a></li>
+                                <li><a href="chrome://apps">
+                                        <div>
+                                            Apps
+                                        </div>
+                                    </a></li>
+                                <li><a href="http://www.youtube.com">
+                                        <div>
+                                            YouTube
+                                        </div>
+                                    </a></li>
+                                <li><a href="http://www.vk.com">
+                                        <div>
+                                            VK
+                                        </div>
+                                    </a></li>
+                                <li><a href="http://www.aliexpress.com">
+                                        <div>
+                                            Aliexpress
+                                        </div>
+                                    </a></li>
+                                <li><a href="http://www.aztu.edu.az">
+                                        <div>
+                                            AzTU
+                                        </div>
+                                    </a></li>
+                                <li><a href="http://www.birbank.az">
+                                        <div>
+                                            BirBank
+                                        </div>
+                                    </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="searchbar">
+                        <i class="fas fa-search"></i>
+                        <form>
+                            <input type="text">
+                            <button>Search</button>
+                        </form>
+                    </div>
+                </section>
+
+                <section class="header-right">
+                    <div class="weather-container">
+                        <div class="icon">
+
+                        </div>
+                        <div class="temperature">
+                            <h2>13°</h2>
+                        </div>
+                        <div class="location">
+                            <p>Hovsan</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </header>
+
+        <main>
+            <div class="main-container">
+                <section class="time">
+                    <h1 id="clocks">...</h1>
+                    <section class="button-container">
+                        <button class="menu-buttons button-1" id="button-1"><i class="fas fa-ellipsis-h"></i></button>
+                    </section>
+                </section>
+                <section class="quote-container">
+                    <section class="quote">
+                        <h1>Be Yourself.</h1>
+                    </section>
+                </section>
+            </div>
+        </main>
+
+        <footer>
+            <section class="footer-left">
+                <div class="settings-menu" id="settings-menu">
+                    <ul>
+                        <li>
+                            <button>Clocks</button>
+                            <ul>
+                                <li>
+                                    <p>Breathing Effect</p>
+                                    <input name="breathing" type="checkbox" id="breathing" onclick="changeClocksBreathing()">
+                                </li>
+                            </ul>
+                        </li>
+                        <li><button>Clocks</button></li>
+                        <li><button>Clocks</button></li>
+                        <li><button>Clocks</button></li>
+                    </ul>
+                </div>
+                <div class="settings">
+                    <button id="settings"><i id="setting" class="fas fa-cog"></i></button>
+                </div>
+                <div class="photo-description">
+                    <p>Above Ho Chi Minh City, Vietnam</p>
+                </div>
+            </section>
+
+            <section class="footer-center">
+                <section class="quote">
+                    <p id="quote">“The world breaks everyone and afterward many are strong at the broken places.”</p>
+                    <div class="quote-author">
+                        <p>Emest Hemingway</p>
+                        <a href=""></a>
+                        <a href=""></a>
+                    </div>
+                </section>
+            </section>
+
+            <section class="footer-right">
+                <div class="todo-container">
+                    <section class="todo">
+                        <ul>
+                            <li id="todo-0" class="todo-list-item">
+                                <input class="checkbox" type="checkbox" id="checkbox-0"
+                                    onclick="ChangeToDoListDecoration()">
+                                <span>Закончить урок по логин-форме</span>
+                                <section class="list-button-container">
+                                    <button value="0" id="list-button" onclick="RemoveToDoListElement(value)"><i
+                                            class="fas fa-times"></i></button>
+                                </section>
+                            </li>
+                            <li id="todo-1" class="todo-list-item">
+                                <input class="checkbox" type="checkbox" id="checkbox-1"
+                                    onclick="ChangeToDoListDecoration()">
+                                <span>Проверить чекбоксы</span>
+                                <section class="list-button-container">
+                                    <button value="1" id="list-button" onclick="RemoveToDoListElement(value)"><i
+                                            class="fas fa-times"></i></button>
+                                </section>
+                            </li>
+                            <li id="todo-2" class="todo-list-item">
+                                <input class="checkbox" type="checkbox" id="checkbox-2"
+                                    onclick="ChangeToDoListDecoration()">
+                                <span>Заебумба, всё работает</span>
+                                <section class="list-button-container">
+                                    <button value="2" id="list-button" onclick="RemoveToDoListElement(value)"><i
+                                            class="fas fa-times"></i></button>
+                                </section>
+                            </li>
+                        </ul>
+                        <section class="create-todo">
+                            <button>New Task</button>
+                        </section>
+                    </section>
+                </div>
+                <button onfocus="ShowToDoList()">Todo</button>
+            </section>
+
+        </footer>
+
+        <script src="script.js"></script>
+        <script src="settings.js"></script>
+    </div>
+</body>
+
+</html>
