@@ -25,13 +25,34 @@ function addMainFocus() {
     let focus = $('#focusInput').val();
 
     if (focus) {
-      console.log(focus);
+        document.getElementById('mainFocusSet').style.display = 'none';
+        document.getElementById('mainFocusReady').style.display = 'flex';
+        document.getElementById('mainFocusText').innerText = focus;
+        document.getElementById('focusInput').value = '';
     }
-    
-    
 }
 
-document.getElementById('focusInput').addEventListener('blur', addMainFocus)
+function removeMainFocus() {
+    document.getElementById('mainFocusText').style.textDecoration = 'none';
+    document.getElementById('mainFocusSet').style.display = 'flex';
+    document.getElementById('mainFocusReady').style.display = 'none';
+    document.getElementById('mainFocusText').innerText = '';
+    document.getElementById('mainFocusCheckbox').checked = false;
+}
+
+function striketroughMainFocus() {
+    let checked = document.getElementById('mainFocusCheckbox').checked;
+
+    if (checked) {
+        document.getElementById('mainFocusText').style.textDecoration = 'line-through';
+    } else {
+        document.getElementById('mainFocusText').style.textDecoration = 'none';
+    }
+}
+
+document.getElementById('focusInput').addEventListener('blur', addMainFocus);
+document.getElementById('mainFocusDelete').addEventListener('click', removeMainFocus);
+document.getElementById('mainFocusCheckbox').addEventListener('click', striketroughMainFocus);
 
 setInterval(setTime, 1000);
 setInterval(ChangeBackground(), 60000);

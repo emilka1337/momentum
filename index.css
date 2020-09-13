@@ -174,8 +174,7 @@ body {
     font-weight: 400;
 }
 .container main .main-container .main-focus-container .main-focus-set {
-    /* display: flex; */
-    display: none;
+    display: flex;
     flex-direction: column;
     justify-content: center;
 }
@@ -200,13 +199,40 @@ body {
     outline: none;
 }
 .container main .main-container .main-focus-container .main-focus-ready {
-    display: flex;
+    display: none;
     justify-content: space-between;
     align-items: center;
 }
-.container main .main-container .main-focus-container .main-focus-ready h2 {
+.container main .main-container .main-focus-container .main-focus-ready #mainFocusCheckbox {
+    opacity: 0;
+    transition: 200ms;
+    background-color: rgba(0, 0, 0, 0);
+    color: violet;
+    border: 1px solid white;
+    border-radius: 2px;
+}
+.container main .main-container .main-focus-container .main-focus-ready #mainFocusText {
     color: white;
+    /* text-decoration: line-through; */
     margin: 20px 20px;
+    font-size: 32px;
+}
+.container main .main-container .main-focus-container .main-focus-ready #mainFocusDelete {
+    opacity: 0;
+    transition: 200ms;
+    background: rgba(0, 0, 0, 0);
+    border: none;
+    cursor: pointer;
+}
+.container main .main-container .main-focus-container .main-focus-ready:hover #mainFocusCheckbox {
+    opacity: 1;
+}
+.container main .main-container .main-focus-container .main-focus-ready:hover #mainFocusDelete {
+    opacity: 1;
+}
+.container main .main-container .main-focus-container .main-focus-ready button i {
+    color: white;
+    font-size: 20px;
 }
 
 .container footer {
