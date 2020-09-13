@@ -125,10 +125,12 @@ body {
     /* color: #ffffff; */
 }
 .container header .header-container .header-right .weather-container h2 {
+    font-weight: 300;
     margin: 5px 0px;
     color: #ffffff;
 }
 .container header .header-container .header-right .weather-container p {
+    text-align: right;
     margin: 10px 0px;
     color: #ffffff;
 }
@@ -156,7 +158,6 @@ body {
     padding-left: 70px;
     padding-right: 70px;
     color: #ffffff;
-    /* animation: clocks 1s ease alternate-reverse infinite; */
 }
 .container main .main-container .time:hover .button-container {
     display: block;
@@ -165,28 +166,30 @@ body {
     position: absolute;
     right: 0px;
 }
-.container main .main-container .quote-container .quote h1{
+.container main .main-container .quote-container .main-quote h1{
     margin: 0;
     padding: 20px 0px;
     color: #ffffff;
     font-size: 30px;
+    font-weight: 400;
 }
-.container main .main-container .main-focus{
-    display: flex;
+.container main .main-container .main-focus-container .main-focus-set {
+    /* display: flex; */
+    display: none;
     flex-direction: column;
     justify-content: center;
 }
-.container main .main-container .main-focus .focus-heading h1 {
+.container main .main-container .main-focus-container .main-focus-set .focus-heading h1 {
     font-weight: 300;
     font-size: 36px;
     color: white;
     margin: 0px, 15px;
 }
-.container main .main-container .main-focus .focus-input {
+.container main .main-container .main-focus-container .main-focus-set .focus-input {
     display: flex;
     justify-content: center;
 }
-.container main .main-container .main-focus .focus-input input {
+.container main .main-container .main-focus-container .main-focus-set .focus-input input {
     width: 95%;
     text-align: center;
     font-size: 25px;
@@ -195,6 +198,15 @@ body {
     border: none;
     border-bottom: 1px solid white;
     outline: none;
+}
+.container main .main-container .main-focus-container .main-focus-ready {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.container main .main-container .main-focus-container .main-focus-ready h2 {
+    color: white;
+    margin: 20px 20px;
 }
 
 .container footer {
@@ -279,6 +291,7 @@ body {
     position: absolute;
     bottom: 0px;
     margin: 0px;
+    font-weight: 300;
     transition: 0.3s;
 }
 .container footer .footer-center .quote-container .quote-author {
@@ -287,6 +300,7 @@ body {
 }
 .container footer .footer-center:hover .quote-container .quote {
     bottom: 30px;
+    font-weight: 300;
 }
 .container footer .footer-center:hover .quote-container .quote-author {
     opacity: 1;
@@ -294,10 +308,7 @@ body {
 .container footer .footer-right {
     display: flex;
     justify-content: flex-end;
-    /* align-items: flex-end; */
     width: 33%;
-    /* position: relative; */
-    /* color: #ffffff; */
 }
 .container footer .footer-right{
     display: flex;
