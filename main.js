@@ -26,4 +26,4 @@ $("#settings").click(function () {
 
 
 setInterval(setTime, 1000);
-setInterval(ChangeBackground(), 60000)
+setInterval(ChangeBackground(), 60000);

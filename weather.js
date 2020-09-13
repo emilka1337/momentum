@@ -4,6 +4,7 @@
     response.json().then((result) => {
         document.getElementById('weather_city').innerText = result.name;
         document.getElementById('weather_temp').innerText = `${result.main.temp - 273.15}° C`;
-        
+    }).catch(() => {
+        console.log('Cant fetch API Open Weather Map. Check your connection');
     });
 })();

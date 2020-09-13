@@ -171,6 +171,31 @@ body {
     color: #ffffff;
     font-size: 30px;
 }
+.container main .main-container .main-focus{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.container main .main-container .main-focus .focus-heading h1 {
+    font-weight: 300;
+    font-size: 36px;
+    color: white;
+    margin: 0px, 15px;
+}
+.container main .main-container .main-focus .focus-input {
+    display: flex;
+    justify-content: center;
+}
+.container main .main-container .main-focus .focus-input input {
+    width: 95%;
+    text-align: center;
+    font-size: 25px;
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    border-bottom: 1px solid white;
+    outline: none;
+}
 
 .container footer {
     display: flex;
@@ -246,6 +271,25 @@ body {
     text-align: center;
     font-weight: 600;
     color: #ffffff;
+}
+.container footer .footer-center .quote-container {
+    position: relative;
+}
+.container footer .footer-center .quote-container .quote {
+    position: absolute;
+    bottom: 0px;
+    margin: 0px;
+    transition: 0.3s;
+}
+.container footer .footer-center .quote-container .quote-author {
+    opacity: 0;
+    transition: 0.3s;
+}
+.container footer .footer-center:hover .quote-container .quote {
+    bottom: 30px;
+}
+.container footer .footer-center:hover .quote-container .quote-author {
+    opacity: 1;
 }
 .container footer .footer-right {
     display: flex;
@@ -327,7 +371,7 @@ body {
 }
 @keyframes clocks {
     from {opacity: 1;}
-    to {opacity: 0.6;}
+    to {opacity: 0.7;}
 }
 
 
