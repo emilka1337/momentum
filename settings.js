@@ -17,3 +17,12 @@ function changeClocksBreathing() {
         localStorage.setItem('breathing', false)
     }
 }
+
+
+function changeClocksFormat() {
+    if (document.getElementById('AM-PM').checked) {
+        localStorage.setItem('AM-PM', 1);
+    } else if (!document.getElementById('AM-PM').checked) {
+        localStorage.setItem('AM-PM', 0);
+    }
+}

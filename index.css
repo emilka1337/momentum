@@ -133,6 +133,8 @@ body {
     text-align: right;
     margin: 10px 0px;
     color: #ffffff;
+    margin: 0px;
+    font-size: 12px;
 }
 
 .container main {
@@ -170,7 +172,7 @@ body {
     margin: 0;
     padding: 20px 0px;
     color: #ffffff;
-    font-size: 30px;
+    font-size: 42px;
     font-weight: 400;
 }
 .container main .main-container .main-focus-container .main-focus-set {
@@ -266,8 +268,10 @@ body {
 /* ////////////////////////////////////////////////////////////////////////////// */
 .container footer .footer-left .settings-menu {
     display: none;
-    background-color: rgba(0, 0, 0, 0.39);
+    background-color: rgba(0, 0, 0, 0.90);
+    border-radius: 5px;
     position: absolute;
+    left: 10px;
     bottom: 50px;
     width: 300px;
 }
@@ -279,25 +283,19 @@ body {
     display: flex;
     flex-direction: column;
 }
-.container footer .footer-left .settings-menu ul li button {
+.container footer .footer-left .settings-menu ul li h3 {
     background: none;
     color: #ffffff;
     border: 0;
     margin: 5px 0px;
     font-size: 20px;
 }
-.container footer .footer-left .settings-menu ul li button:hover {
-    background-color: #ffffff;
-    color: #000000;
+.container footer .footer-left .settings-menu ul li ul li .setting {
+    padding: 5px;
 }
-.container footer .footer-left .settings-menu ul li ul li {
-    display: flex;
-    align-items: center;
-    margin-left: 20px;
-}
-.container footer .footer-left .settings-menu ul li ul li p {
+.container footer .footer-left .settings-menu ul li ul li .setting label {
     color: #ffffff;
-    margin: 0;
+    padding: 10px, 0px;
 }
 /* ///////////////////////////////////////////////////////////////////////////////////////// */
 .container footer .footer-left .photo-description p {

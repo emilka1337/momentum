@@ -93,7 +93,7 @@
                 </section>
                 <section class="quote-container">
                     <section class="main-quote">
-                        <h1>Be Yourself.</h1>
+                        <h1 id="mantra">-</h1>
                     </section>
                 </section>
                 <section class="main-focus-container">
@@ -120,25 +120,33 @@
                 <div class="settings-menu" id="settings-menu">
                     <ul>
                         <li>
-                            <button>Clocks</button>
+                            <h3>Clocks</h3>
                             <ul>
                                 <li>
-                                    <p>Breathing Effect</p>
-                                    <input name="breathing" type="checkbox" id="breathing" onclick="changeClocksBreathing()">
+                                    <div class="setting">
+                                        <label>Breathing Effect:</label>
+                                        <input type="checkbox" id="breathing" onclick="changeClocksBreathing()">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="setting">
+                                        <label>AM Format:</label>
+                                        <input type="checkbox" id="AM-PM" onclick="changeClocksFormat()">
+                                    </div>
                                 </li>
                             </ul>
                         </li>
-                        <li><button>Clocks</button></li>
-                        <li><button>Clocks</button></li>
-                        <li><button>Clocks</button></li>
+                        <li><h3>Menu 2</h3></li>
+                        <li><h3>Menu 3</h3></li>
+                        <li><h3>Menu 4</h3></li>
                     </ul>
                 </div>
                 <div class="settings">
                     <button id="settings"><i id="setting" class="fas fa-cog"></i></button>
                 </div>
-                <div class="photo-description">
+                <!-- <div class="photo-description">
                     <p>Above Ho Chi Minh City, Vietnam</p>
-                </div>
+                </div> -->
             </section>
 
             <section class="footer-center">
