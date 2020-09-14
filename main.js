@@ -1,12 +1,5 @@
 'use strict'
 
-// function getDate(from, count) {
-//     let now = new Date();
-//     let time = String(now);
-//     let result = time.substr(from, count);
-//     return result
-// }
-
 let getRandom = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
 function setTime() {
@@ -56,11 +49,10 @@ $("#settings").click(function () {
 })
 
 function addMainFocus() {
-    let focus = $('#focusInput').val();
-
-    localStorage.setItem('mainFocus', focus);
+    let focus = document.getElementById('focusInput').value;
 
     if (focus) {
+        localStorage.setItem('mainFocus', focus);
         document.getElementById('mainFocusSet').style.display = 'none';
         document.getElementById('mainFocusReady').style.display = 'flex';
         document.getElementById('mainFocusText').innerText = focus;
@@ -76,8 +68,8 @@ document.getElementById('focusInput').addEventListener('keypress', (event) => {
 
 function removeMainFocus() {
     document.getElementById('mainFocusText').style.textDecoration = 'none';
-    document.getElementById('mainFocusSet').style.display = 'flex';
     document.getElementById('mainFocusReady').style.display = 'none';
+    document.getElementById('mainFocusSet').style.display = 'flex';
     document.getElementById('mainFocusText').innerText = '';
     document.getElementById('mainFocusCheckbox').checked = false;
 
@@ -96,10 +88,16 @@ function striketroughMainFocus() {
 
     if (checked) {
         document.getElementById('mainFocusText').style.textDecoration = 'line-through';
+        localStorage.setItem('mainFocusChecked', 1);
     } else {
         document.getElementById('mainFocusText').style.textDecoration = 'none';
+        localStorage.removeItem('mainFocusChecked');
     }
 }
+
+document.getElementById('focusInput').addEventListener('blur', addMainFocus);
+document.getElementById('mainFocusDelete').addEventListener('click', removeMainFocus);
+document.getElementById('mainFocusCheckbox').addEventListener('click', striketroughMainFocus);
 
 function setQuote() {
     let quotes = [
@@ -138,9 +136,6 @@ function setQuote() {
     document.getElementById('quoteAuthor').innerText = quotes[random].author;
 } setQuote();
 
-document.getElementById('focusInput').addEventListener('blur', addMainFocus);
-document.getElementById('mainFocusDelete').addEventListener('click', removeMainFocus);
-document.getElementById('mainFocusCheckbox').addEventListener('click', striketroughMainFocus);
 
 setInterval(setTime, 1000);
 setInterval(ChangeBackground(), 60000);
@@ -184,8 +179,14 @@ setInterval(setQuote, 120000);
 })();
 
 (function () {
-    if (localStorage.getItem('mainFocus')) {
-        document.getElementById('focusInput').value = localStorage.getItem('mainFocus');
+    let focus = localStorage.getItem('mainFocus');
+
+    if (focus) {
+        document.getElementById('focusInput').value = focus;
         addMainFocus();
+        if (localStorage.getItem('mainFocusChecked')) {
+            document.getElementById('mainFocusCheckbox').checked = true;
+            striketroughMainFocus();
+        }
     }
 })()
