@@ -70,6 +70,13 @@ function removeMainFocus() {
     document.getElementById('mainFocusCheckbox').checked = false;
 }
 
+setInterval(() => {
+    let date = new Date;
+    if (date.getHours == 0) {
+        removeMainFocus();
+    }
+}, 3600000);
+
 function striketroughMainFocus() {
     let checked = document.getElementById('mainFocusCheckbox').checked;
 
@@ -105,6 +112,10 @@ function setQuote() {
         {
             quote: '“As you start to walk out on the way, the way appears.”',
             author: 'Rumi'
+        },
+        {
+            quote: "“One day you will wake up and there won't be any more time to do the things you've always wanted. Do it now.”",
+            author: 'Paulo Coelho'
         }
     ];
     let random = getRandom(0, quotes.length);

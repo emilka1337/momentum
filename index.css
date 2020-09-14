@@ -297,6 +297,9 @@ body {
     color: #ffffff;
     padding: 10px, 0px;
 }
+.container footer .footer-left .settings-menu ul li ul li .setting input {
+    float: right;
+}
 /* ///////////////////////////////////////////////////////////////////////////////////////// */
 .container footer .footer-left .photo-description p {
     margin: 10px;
