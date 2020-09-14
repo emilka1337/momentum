@@ -32,12 +32,16 @@ function setTime() {
             document.getElementById('clocks').innerHTML = `${hours - 12}:${minutes}`;
         }
     } else {
-        if (hours < 10) {
+        if (hours < 10 && minutes < 10) {
+            document.getElementById('clocks').innerHTML = `0${hours}:0${minutes}`;
+        } else if (hours < 10) {
             document.getElementById('clocks').innerHTML = `0${hours}:${minutes}`;
+        } else if (minutes < 10) {
+            document.getElementById('clocks').innerHTML = `${hours}:0${minutes}`;
         } else {
             document.getElementById('clocks').innerHTML = `${hours}:${minutes}`;
         }
-        
+
     }
 }
 
@@ -54,6 +58,8 @@ $("#settings").click(function () {
 function addMainFocus() {
     let focus = $('#focusInput').val();
 
+    localStorage.setItem('mainFocus', focus);
+
     if (focus) {
         document.getElementById('mainFocusSet').style.display = 'none';
         document.getElementById('mainFocusReady').style.display = 'flex';
@@ -62,12 +68,20 @@ function addMainFocus() {
     }
 }
 
+document.getElementById('focusInput').addEventListener('keypress', (event) => {
+    if (event.code == 'Enter') {
+        addMainFocus();
+    }
+})
+
 function removeMainFocus() {
     document.getElementById('mainFocusText').style.textDecoration = 'none';
     document.getElementById('mainFocusSet').style.display = 'flex';
     document.getElementById('mainFocusReady').style.display = 'none';
     document.getElementById('mainFocusText').innerText = '';
     document.getElementById('mainFocusCheckbox').checked = false;
+
+    localStorage.removeItem('mainFocus');
 }
 
 setInterval(() => {
@@ -166,5 +180,12 @@ setInterval(setQuote, 120000);
         }
     } else {
         document.getElementById('mantra').innerText = mantra;
+    }
+})();
+
+(function () {
+    if (localStorage.getItem('mainFocus')) {
+        document.getElementById('focusInput').value = localStorage.getItem('mainFocus');
+        addMainFocus();
     }
 })()
