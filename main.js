@@ -137,6 +137,92 @@ function setQuote() {
 } setQuote();
 
 
+function addItemToBookmarks(name, url) {
+    if (!localStorage.getItem('bookmarks')) {
+        let bookmarks = [];
+        let bookmark = {
+            'name': name,
+            'url': `http://${url}`
+        };
+        bookmarks.push(bookmark);
+        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+        pushItemToBookmarks(bookmark, 0);
+    } else {
+        let bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+        let bookmark = {
+            'name': name,
+            'url': `http://${url}`
+        };
+        bookmarks.push(bookmark);
+        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+        pushItemToBookmarks(bookmark, bookmarks.length);
+    }
+}
+
+function addItemsToBookmarksButton() {
+    let name = prompt('Enter name of site');
+    let url = prompt('Enter url of site');
+
+    addItemToBookmarks(name, url);
+}
+
+function removeItemFromBookmarks(index) {
+    let bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+    bookmarks.splice(index, 1);
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+
+    document.getElementById('linksList').removeChild(document.getElementById(`bookmark${index}`));
+}
+
+function pushItemToBookmarks(bookmark, index) {
+    let linksList = document.getElementById('linksList');
+    linksList.removeChild(document.getElementById('addBookmarkButton'));
+
+    let li = document.createElement('li');
+    let a = document.createElement('a');
+    let div = document.createElement('div');
+    let button = document.createElement('button');
+    let i = document.createElement('i');
+
+    li.style.position = 'relative';
+    li.id = `bookmark${index}`;
+    a.setAttribute('href', bookmark.url);
+    div.innerText = bookmark.name;
+    button.setAttribute('value', index);
+    button.style.float = 'right';
+    button.style.padding = '0px';
+    button.style.position = 'absolute';
+    button.style.top = '0px';
+    button.style.right = '10px';
+    button.style.zIndex = '1'
+    button.setAttribute('value', index);
+    button.setAttribute('onclick', 'removeItemFromBookmarks(this.value)')
+    i.className = 'fas fa-times';
+
+    linksList.appendChild(li)
+    li.appendChild(a);
+    li.appendChild(button);
+    a.appendChild(div);
+    button.appendChild(i);
+    linksList.appendChild(createBookmarkButton());
+}
+
+function createBookmarkButton() {
+    let button = document.createElement('button');
+    button.id = 'addBookmarkButton'
+    // button.innerText = 'Add bookmark';
+    button.innerHTML = 'Add <i class="fas fa-plus"></i>';
+    button.setAttribute('onclick', `addItemsToBookmarksButton()`);
+    button.style.borderRadius = `5px`;
+
+    return button;
+}
+
+$('#links').click(() => {
+    $('#linksDropdown').toggle(200);
+})
+
+
 setInterval(setTime, 1000);
 setInterval(ChangeBackground(), 60000);
 setInterval(setQuote, 120000);
@@ -147,7 +233,7 @@ setInterval(setQuote, 120000);
     }
 })();
 
-(function () {
+(function () {                                      // Мантры
     let mantras = [
         'Greeting',
         'Be yourself.',
@@ -178,7 +264,7 @@ setInterval(setQuote, 120000);
     }
 })();
 
-(function () {
+(function () {                                      // Main focus
     let focus = localStorage.getItem('mainFocus');
 
     if (focus) {
@@ -189,4 +275,17 @@ setInterval(setQuote, 120000);
             striketroughMainFocus();
         }
     }
-})()
+})();
+
+(function () {
+    let bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+    document.getElementById('linksList').appendChild(createBookmarkButton())
+
+    if (bookmarks) {
+        let index = 0;
+        for (let bookmark of bookmarks) {
+            pushItemToBookmarks(bookmark, index);
+            index++;
+        }
+    }
+})();
