@@ -205,17 +205,22 @@ function pushItemToBookmarks(bookmark, index, imgLink) {
 
     li.style.position = 'relative';
     li.id = `bookmark${index}`;
+    li.onmouseover = () => {document.getElementById(`removeBookmark${index}`).style.opacity = 1};
+    li.onmouseleave = () => {document.getElementById(`removeBookmark${index}`).style.opacity = 0};
     a.setAttribute('href', bookmark.url);
     div.innerHTML = `<img src = https://www.google.com/s2/favicons?domain=${imgLink} style="margin-right: 5px;"> ${bookmark.name}`;
     div.style.padding = '1px 0px';
     button.setAttribute('value', index);
+    button.id = `removeBookmark${index}`;
+    button.style.opacity = '0';
+    button.style.transition = '0.2s';
     let buttonStyles = ['float', 'padding', 'position', 'top', 'right', 'zIndex'];
     let buttonStylesValues = ['right', '0px', 'absolute', '0px', '10px', '1'];
     for (let i in buttonStyles) {
         button.style[buttonStyles[i]] = buttonStylesValues[i];
     }
     button.setAttribute('value', index);
-    button.setAttribute('onclick', 'removeItemFromBookmarks(this.value)')
+    button.setAttribute('onclick', 'removeItemFromBookmarks(this.value)');
     i.className = 'fas fa-times';
     i.style.color = '#ffffffb0';
 
@@ -288,7 +293,7 @@ setInterval(setQuote, 120000);
     let mainFocus = JSON.parse(localStorage.getItem('mainFocus'));
     let date = new Date;
 
-    if (focus && date.getDate() == mainFocus.day) {
+    if (mainFocus && date.getDate() == mainFocus.day) {
         document.getElementById('focusInput').value = mainFocus.focus;
         addMainFocus();
         if (localStorage.getItem('mainFocusChecked')) {
