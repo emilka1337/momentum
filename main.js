@@ -49,10 +49,16 @@ $("#settings").click(function () {
 })
 
 function addMainFocus() {
+    let date = new Date;
     let focus = document.getElementById('focusInput').value;
+    let day = date.getDate();
+    let mainFocus = {
+        'focus':  focus,
+        'day': day
+    };
 
     if (focus) {
-        localStorage.setItem('mainFocus', focus);
+        localStorage.setItem('mainFocus', JSON.stringify(mainFocus));
         document.getElementById('mainFocusSet').style.display = 'none';
         document.getElementById('mainFocusReady').style.display = 'flex';
         document.getElementById('mainFocusText').innerText = focus;
@@ -187,7 +193,7 @@ function removeItemFromBookmarks(index) {
     document.getElementById('linksList').removeChild(document.getElementById(`bookmark${index}`));
 }
 
-function pushItemToBookmarks(bookmark, index) {
+function pushItemToBookmarks(bookmark, index, imgLink) {
     let linksList = document.getElementById('linksList');
     linksList.removeChild(document.getElementById('addBookmarkButton'));
 
@@ -200,17 +206,18 @@ function pushItemToBookmarks(bookmark, index) {
     li.style.position = 'relative';
     li.id = `bookmark${index}`;
     a.setAttribute('href', bookmark.url);
-    div.innerText = bookmark.name;
+    div.innerHTML = `<img src = https://www.google.com/s2/favicons?domain=${imgLink} style="margin-right: 5px;"> ${bookmark.name}`;
+    div.style.padding = '1px 0px';
     button.setAttribute('value', index);
-    button.style.float = 'right';
-    button.style.padding = '0px';
-    button.style.position = 'absolute';
-    button.style.top = '0px';
-    button.style.right = '10px';
-    button.style.zIndex = '1'
+    let buttonStyles = ['float', 'padding', 'position', 'top', 'right', 'zIndex'];
+    let buttonStylesValues = ['right', '0px', 'absolute', '0px', '10px', '1'];
+    for (let i in buttonStyles) {
+        button.style[buttonStyles[i]] = buttonStylesValues[i];
+    }
     button.setAttribute('value', index);
     button.setAttribute('onclick', 'removeItemFromBookmarks(this.value)')
     i.className = 'fas fa-times';
+    i.style.color = '#ffffffb0';
 
     linksList.appendChild(li)
     li.appendChild(a);
@@ -250,7 +257,7 @@ setInterval(setQuote, 120000);
         'Greeting',
         'Be yourself.',
         'Be present.',
-        'Be kind to yourself',
+        'Be kind to yourself.',
 
     ];
 
@@ -278,15 +285,18 @@ setInterval(setQuote, 120000);
 })();
 
 (function () {                                      // Main focus
-    let focus = localStorage.getItem('mainFocus');
+    let mainFocus = JSON.parse(localStorage.getItem('mainFocus'));
+    let date = new Date;
 
-    if (focus) {
-        document.getElementById('focusInput').value = focus;
+    if (focus && date.getDate() == mainFocus.day) {
+        document.getElementById('focusInput').value = mainFocus.focus;
         addMainFocus();
         if (localStorage.getItem('mainFocusChecked')) {
             document.getElementById('mainFocusCheckbox').checked = true;
             striketroughMainFocus();
         }
+    } else {
+        removeMainFocus();
     }
 })();
 
@@ -297,7 +307,8 @@ setInterval(setQuote, 120000);
     if (bookmarks) {
         let index = 0;
         for (let bookmark of bookmarks) {
-            pushItemToBookmarks(bookmark, index);
+            let imgLink = bookmark.url.substr(7, bookmark.url.length);
+            pushItemToBookmarks(bookmark, index, imgLink);
             index++;
         }
     }
