@@ -41,7 +41,7 @@ function setTime() {
 function ChangeBackground() {
     let date = new Date;
     let month = date.getMonth();
-    document.getElementById('body').style.backgroundImage = `url(./img2/${month}.jpg)`
+    document.getElementById('body').style.backgroundImage = `url(./img/${month}.jpg)`
 }
 
 $("#settings").click(function () {
@@ -128,14 +128,17 @@ function setQuote() {
         {
             quote: "“One day you will wake up and there won't be any more time to do the things you've always wanted. Do it now.”",
             author: 'Paulo Coelho'
-        }
+        },
+        {
+            quote: "“Live your dream, and share your passion.”",
+            author: "Holstee Manifesto"
+        },
     ];
     let random = getRandom(0, quotes.length);
 
     document.getElementById('quote').innerText = quotes[random].quote;
     document.getElementById('quoteAuthor').innerText = quotes[random].author;
 } setQuote();
-
 
 function addItemToBookmarks(name, url) {
     if (!localStorage.getItem('bookmarks')) {
@@ -161,9 +164,19 @@ function addItemToBookmarks(name, url) {
 
 function addItemsToBookmarksButton() {
     let name = prompt('Enter name of site');
+    if (name == undefined) {
+        return;
+    }
     let url = prompt('Enter url of site');
+    if (url == undefined) {
+        return;
+    }
 
-    addItemToBookmarks(name, url);
+    if (name && url) {
+        addItemToBookmarks(name, url);
+    } else {
+        alert('One of your onputs are incorrect');
+    }
 }
 
 function removeItemFromBookmarks(index) {
@@ -204,13 +217,12 @@ function pushItemToBookmarks(bookmark, index) {
     li.appendChild(button);
     a.appendChild(div);
     button.appendChild(i);
-    linksList.appendChild(createBookmarkButton());
+    linksList.appendChild(createAddBookmarkButton());
 }
 
-function createBookmarkButton() {
+function createAddBookmarkButton() {
     let button = document.createElement('button');
-    button.id = 'addBookmarkButton'
-    // button.innerText = 'Add bookmark';
+    button.id = 'addBookmarkButton';
     button.innerHTML = 'Add <i class="fas fa-plus"></i>';
     button.setAttribute('onclick', `addItemsToBookmarksButton()`);
     button.style.borderRadius = `5px`;
@@ -238,10 +250,11 @@ setInterval(setQuote, 120000);
         'Greeting',
         'Be yourself.',
         'Be present.',
+        'Be kind to yourself',
 
     ];
 
-    let username = localStorage.getItem('username')
+    let username = localStorage.getItem('username');
 
     let random = getRandom(0, mantras.length);
     let mantra = mantras[random];
@@ -277,9 +290,9 @@ setInterval(setQuote, 120000);
     }
 })();
 
-(function () {
+(function () {                                      // Динамичная генерация закладок
     let bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
-    document.getElementById('linksList').appendChild(createBookmarkButton())
+    document.getElementById('linksList').appendChild(createAddBookmarkButton());
 
     if (bookmarks) {
         let index = 0;
