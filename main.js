@@ -38,6 +38,45 @@ function setTime() {
     }
 }
 
+function createElement(...elems) {
+    let elemsArray = [];
+
+    for (let elem of elems) {
+        elem = document.createElement(elem);
+        elemsArray.push(elem);
+    }
+
+    return elemsArray;
+}
+
+function setStyles(elem, ...styles) {
+    if (typeof (elem) == 'string') {
+        if (elem[0] == '#') {
+            elem = document.getElementById(elem);
+        }
+        else if (elem[0] == '.') {
+            elem = document.getElementsByClassName(elem);
+
+            for (let className of elem) {
+                for (let i = 0; i < styles.length; i += 2) {
+                    if (i % 2 == 0) {
+                        className.style[styles[i]] = styles[i + 1];
+                    }
+                }
+            }
+            return;
+        }
+    }
+
+    for (let i = 0; i < styles.length; i++) {
+        if (i % 2 == 0) {
+            elem.style[styles[i]] = styles[++i];
+        }
+    }
+
+    return elem;
+}
+
 function ChangeBackground() {
     let date = new Date;
     let month = date.getMonth();
@@ -53,7 +92,7 @@ function addMainFocus() {
     let focus = document.getElementById('focusInput').value;
     let day = date.getDate();
     let mainFocus = {
-        'focus':  focus,
+        'focus': focus,
         'day': day
     };
 
@@ -185,46 +224,55 @@ function addItemsToBookmarksButton() {
     }
 }
 
-function removeItemFromBookmarks(index) {
-    let bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
-    bookmarks.splice(index, 1);
-    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-
-    document.getElementById('linksList').removeChild(document.getElementById(`bookmark${index}`));
-}
-
 function pushItemToBookmarks(bookmark, index, imgLink) {
     let linksList = document.getElementById('linksList');
     linksList.removeChild(document.getElementById('addBookmarkButton'));
 
-    let li = document.createElement('li');
-    let a = document.createElement('a');
-    let div = document.createElement('div');
-    let button = document.createElement('button');
-    let i = document.createElement('i');
+    let [li, a, div, button, i] = createElement('li', 'a', 'div', 'button', 'i');   // Деструктурирующее присваивание
 
-    li.style.position = 'relative';
+    setStyles(li, 'position', 'relative');
+    // li.style.position = 'relative';
     li.id = `bookmark${index}`;
-    li.onmouseover = () => {document.getElementById(`removeBookmark${index}`).style.opacity = 1};
-    li.onmouseleave = () => {document.getElementById(`removeBookmark${index}`).style.opacity = 0};
+    li.onmouseover = () => { document.getElementById(`removeBookmark${index}`).style.opacity = 1 };
+    li.onmouseleave = () => { document.getElementById(`removeBookmark${index}`).style.opacity = 0 };
     a.setAttribute('href', bookmark.url);
     div.innerHTML = `<img src = https://www.google.com/s2/favicons?domain=${imgLink} style="margin-right: 5px;"> ${bookmark.name}`;
-    div.style.padding = '1px 0px';
+    setStyles(div, 'padding', '1px 0px');
+    // div.style.padding = '1px 0px';
     button.setAttribute('value', index);
     button.id = `removeBookmark${index}`;
-    button.style.opacity = '0';
-    button.style.transition = '0.2s';
-    let buttonStyles = ['float', 'padding', 'position', 'top', 'right', 'zIndex'];
-    let buttonStylesValues = ['right', '0px', 'absolute', '0px', '10px', '1'];
-    for (let i in buttonStyles) {
-        button.style[buttonStyles[i]] = buttonStylesValues[i];
-    }
+
+    setStyles(
+        button,
+        'float', 'right',
+        'padding', '0px',
+        'position', 'absolute',
+        'top', '0px',
+        'right', '10px',
+        'zIndex', '1',
+        'opacity', '0',
+        'transition', '0.2s'
+    );
+    // let buttonStyles = {
+    //     'float': 'right',
+    //     'padding': '0px',
+    //     'position': 'absolute',
+    //     'top': '0px',
+    //     'right': '10px',
+    //     'zIndex': '1',
+    //     'opacity': '0',
+    //     'transition': '0.2s'
+    // }
+    // for (let key in buttonStyles) {
+    //     button.style[key] = buttonStyles[key];
+    // };
     button.setAttribute('value', index);
     button.setAttribute('onclick', 'removeItemFromBookmarks(this.value)');
     i.className = 'fas fa-times';
-    i.style.color = '#ffffffb0';
+    setStyles(i, 'color', '#ffffffb0');
+    // i.style.color = '#ffffffb0';
 
-    linksList.appendChild(li)
+    linksList.appendChild(li);
     li.appendChild(a);
     li.appendChild(button);
     a.appendChild(div);
@@ -242,9 +290,42 @@ function createAddBookmarkButton() {
     return button;
 }
 
+function removeItemFromBookmarks(index) {
+    let bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+    bookmarks.splice(index, 1);
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+
+    document.getElementById('linksList').removeChild(document.getElementById(`bookmark${index}`));
+}
+
 $('#links').click(() => {
     $('#linksDropdown').toggle(200);
-})
+});
+
+document.getElementById('search').onfocus = () => document.getElementById('searchbar').style.opacity = '1';
+document.getElementById('search').onblur = () => document.getElementById('searchbar').style.opacity = '0.3';
+document.getElementById('searchButton').addEventListener('click', function (event) {
+    event.preventDefault();
+
+    let userQuery = document.getElementById('search').value;
+    let query = 'https://www.google.com/search?q=';
+
+    query += userQuery.split(' ').join('+');
+
+    document.location.href = query;
+});
+document.getElementById('searchButton').addEventListener('keypress', function (event) {
+    if (event.code == 'Enter') {
+        event.preventDefault();
+
+        let userQuery = document.getElementById('search').value;
+        let query = 'https://www.google.com/search?q=';
+
+        query += userQuery.split(' ').join('+');
+
+        document.location.href = query;
+    }
+});
 
 
 setInterval(setTime, 1000);

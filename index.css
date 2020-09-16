@@ -108,7 +108,7 @@ body {
     opacity: 1;
 }
 .container header .header-container .header-left .searchbar form {
-        cursor: text;
+    cursor: text;
 }
 .container header .header-container .header-left .searchbar i {
     padding-right: 10px;
