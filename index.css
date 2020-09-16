@@ -9,7 +9,13 @@ body {
     transition: 1s;
 }
 *::selection {
-    background: darkred;
+    background: none;
+}
+* {
+    cursor: default;
+}
+button, i {
+    cursor: pointer;
 }
 .container {
     display: flex;
@@ -45,7 +51,8 @@ body {
     font-family: "Neue Haas Grotesk Text Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
     background-color: #00000000;
     color: #ffffff;
-    font-weight: 900;
+    font-weight: 500;
+    font-size: 16px;
     padding: 12px;
     border: none;
     outline: none;
@@ -100,7 +107,9 @@ body {
 }
 .container header .header-container .header-left .searchbar {
     display: flex;
-    border-bottom: 2px solid #ffffff;
+    align-items: center;
+    height: 40px;
+    border-bottom: 1px solid #ffffff;
     transition: 0.3s;
     opacity: 0.3;
 }
@@ -112,8 +121,8 @@ body {
 }
 .container header .header-container .header-left .searchbar i {
     padding-right: 10px;
-    padding-bottom: 10px;
     color: #ffffff;
+    font-size: 16px;
 }
 .container header .header-container .header-left .searchbar input {
     border: none;
@@ -122,6 +131,8 @@ body {
     background-color: #00000000;
     color: #ffffff;
     font-family: "Neue Haas Grotesk Text Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
 }
 .container header .header-container .header-left .searchbar button {
     border: none;
@@ -152,7 +163,7 @@ body {
     margin: 10px 0px;
     color: #ffffff;
     margin: 0px;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .container main {
@@ -192,6 +203,7 @@ body {
     color: #ffffff;
     font-size: 42px;
     font-weight: 400;
+    transition: 300ms;
 }
 .container main .main-container .main-focus-container .main-focus-set {
     display: flex;
@@ -265,7 +277,7 @@ body {
 .container footer .footer-left {
     display: flex;
     flex-direction: row;
-    width: 33%;
+    width: 25%;
     /* color: #ffffff; */
 }
 .container footer .footer-left .settings {
@@ -281,7 +293,7 @@ body {
 }
 .container footer .footer-left .settings button:hover i{
     transform: rotate(270deg) scale(1.2);
-    transition: 0.2s;
+    transition: 0.4s;
 }
 /* ////////////////////////////////////////////////////////////////////////////// */
 .container footer .footer-left .settings-menu {
@@ -323,7 +335,7 @@ body {
     margin: 10px;
 }
 .container footer .footer-center {
-    width: 34%;
+    width: 50%;
     text-align: center;
     font-weight: 600;
     color: #ffffff;
@@ -333,11 +345,12 @@ body {
 }
 .container footer .footer-center .quote-container .quote {
     position: absolute;
-    width: 544px;
+    width: 100%;
     text-align: center;
     bottom: 0px;
     margin: 0px;
     font-weight: 300;
+    font-size: 20px;
     transition: 0.3s;
 }
 .container footer .footer-center .quote-container .quote-author {
@@ -346,7 +359,6 @@ body {
 }
 .container footer .footer-center:hover .quote-container .quote {
     bottom: 30px;
-    font-weight: 300;
 }
 .container footer .footer-center:hover .quote-container .quote-author {
     opacity: 1;
@@ -354,7 +366,7 @@ body {
 .container footer .footer-right {
     display: flex;
     justify-content: flex-end;
-    width: 33%;
+    width: 25%;
 }
 .container footer .footer-right{
     display: flex;

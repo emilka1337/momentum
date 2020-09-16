@@ -52,6 +52,9 @@ function createElement(...elems) {
 function setStyles(elem, ...styles) {
     if (typeof (elem) == 'string') {
         if (elem[0] == '#') {
+            elem = elem.split('');
+            elem.shift();
+            elem = elem.join('');
             elem = document.getElementById(elem);
         }
         else if (elem[0] == '.') {
@@ -79,8 +82,8 @@ function setStyles(elem, ...styles) {
 
 function ChangeBackground() {
     let date = new Date;
-    let month = date.getMonth();
-    document.getElementById('body').style.backgroundImage = `url(./img/${month}.jpg)`
+    let month = date.getDate();
+    document.getElementById('body').style.backgroundImage = `url(./img/${month}.jpg)`;
 }
 
 $("#settings").click(function () {
@@ -144,7 +147,7 @@ document.getElementById('focusInput').addEventListener('blur', addMainFocus);
 document.getElementById('mainFocusDelete').addEventListener('click', removeMainFocus);
 document.getElementById('mainFocusCheckbox').addEventListener('click', striketroughMainFocus);
 
-function setQuote() {
+function setQuote() {                   // Установить цитату
     let quotes = [
         {
             quote: '“The world breaks everyone and afterward many are strong at the broken places.”',
@@ -178,14 +181,63 @@ function setQuote() {
             quote: "“Live your dream, and share your passion.”",
             author: "Holstee Manifesto"
         },
+        {
+            quote: "“There are always limits, and there are always opportunities. The ones we rehearse and focus on are the ones that shape our attitude and our actions.”",
+            author: "Seth Godin"
+        }
     ];
     let random = getRandom(0, quotes.length);
 
-    document.getElementById('quote').innerText = quotes[random].quote;
-    document.getElementById('quoteAuthor').innerText = quotes[random].author;
+    setStyles('#quote', 'opacity', '0');
+    setStyles('#quoteAuthor', 'opacity', '0');
+    setTimeout(() => {
+        document.getElementById('quote').innerText = quotes[random].quote;
+        document.getElementById('quoteAuthor').innerText = quotes[random].author;
+        setStyles('#quote', 'opacity', '1');
+        setStyles('#quoteAuthor', 'opacity', '1');
+    }, 300);
 } setQuote();
 
-function addItemToBookmarks(name, url) {
+function setMantra() {
+    let mantras = [
+        'Greeting',
+        'Be yourself.',
+        'Be present.',
+        'Be kind to yourself.',
+        'Spread your wings.',
+
+    ];
+
+    let username = localStorage.getItem('username');
+
+    let random = getRandom(0, mantras.length);
+    let mantra = mantras[random];
+    setStyles('#mantra', 'opacity', '0');
+
+    setTimeout(() => {
+        if (!random) {
+            let date = new Date;
+            let time = date.getHours();
+
+            if (time >= 0 && time < 4) {
+                document.getElementById('mantra').innerText = `Good night, ${username}`;
+            } else if (time >= 4 && time < 12) {
+                document.getElementById('mantra').innerText = `Good morning, ${username}`;
+            } else if (time >= 12 && time < 16) {
+                document.getElementById('mantra').innerText = `Good afternoon, ${username}`;
+            } else {
+                document.getElementById('mantra').innerText = `Good evening, ${username}`;
+            }
+        } else {
+            document.getElementById('mantra').innerText = mantra;
+        }
+
+        setStyles('#mantra', 'opacity', '1');
+    }, 300);
+
+} setMantra();
+
+function addItemToBookmarks(name, url) {    // Записать закладку в "базу данных"
     if (!localStorage.getItem('bookmarks')) {
         let bookmarks = [];
         let bookmark = {
@@ -207,7 +259,7 @@ function addItemToBookmarks(name, url) {
     }
 }
 
-function addItemsToBookmarksButton() {
+function addItemsToBookmarksButton() {      // Запрос ввода данных сайта для закладки
     let name = prompt('Enter name of site');
     if (name == undefined) {
         return;
@@ -224,7 +276,7 @@ function addItemsToBookmarksButton() {
     }
 }
 
-function pushItemToBookmarks(bookmark, index, imgLink) {
+function pushItemToBookmarks(bookmark, index, imgLink) {    // Добавление закладки в панель закладок
     let linksList = document.getElementById('linksList');
     linksList.removeChild(document.getElementById('addBookmarkButton'));
 
@@ -280,7 +332,7 @@ function pushItemToBookmarks(bookmark, index, imgLink) {
     linksList.appendChild(createAddBookmarkButton());
 }
 
-function createAddBookmarkButton() {
+function createAddBookmarkButton() {            // Создание кнопки "Добавить закладку"
     let button = document.createElement('button');
     button.id = 'addBookmarkButton';
     button.innerHTML = 'Add <i class="fas fa-plus"></i>';
@@ -290,7 +342,7 @@ function createAddBookmarkButton() {
     return button;
 }
 
-function removeItemFromBookmarks(index) {
+function removeItemFromBookmarks(index) {       // Удаление закладки из списка и из "базы данных"
     let bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
     bookmarks.splice(index, 1);
     localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
@@ -302,8 +354,16 @@ $('#links').click(() => {
     $('#linksDropdown').toggle(200);
 });
 
-document.getElementById('search').onfocus = () => document.getElementById('searchbar').style.opacity = '1';
-document.getElementById('search').onblur = () => document.getElementById('searchbar').style.opacity = '0.3';
+//#region Searchbar conditions
+document.getElementById('search').onfocus = () => {
+    document.getElementById('searchbar').style.opacity = '1';
+    document.getElementById('searchbar').onmouseout = () => document.getElementById('searchbar').style.opacity = '1';
+}
+document.getElementById('search').onblur = () => {
+    document.getElementById('searchbar').style.opacity = '0.3';
+    document.getElementById('searchbar').onmouseover = () => document.getElementById('searchbar').style.opacity = '1';
+    document.getElementById('searchbar').onmouseout = () => document.getElementById('searchbar').style.opacity = '0.3';
+}
 document.getElementById('searchButton').addEventListener('click', function (event) {
     event.preventDefault();
 
@@ -326,47 +386,16 @@ document.getElementById('searchButton').addEventListener('keypress', function (e
         document.location.href = query;
     }
 });
-
+//#endregion
 
 setInterval(setTime, 1000);
 setInterval(ChangeBackground(), 60000);
-setInterval(setQuote, 120000);
+setInterval(setQuote, 30000);
+setInterval(setMantra, 45000);
 
 (function () {                                       // Проверка пользователя
     if (!localStorage.getItem('username')) {
         localStorage.setItem('username', prompt('Hi! Enter your name, please'));
-    }
-})();
-
-(function () {                                      // Мантры
-    let mantras = [
-        'Greeting',
-        'Be yourself.',
-        'Be present.',
-        'Be kind to yourself.',
-
-    ];
-
-    let username = localStorage.getItem('username');
-
-    let random = getRandom(0, mantras.length);
-    let mantra = mantras[random];
-
-    if (!random) {
-        let date = new Date;
-        let time = date.getHours();
-
-        if (time >= 0 && time < 4) {
-            document.getElementById('mantra').innerText = `Good night, ${username}`;
-        } else if (time >= 4 && time < 12) {
-            document.getElementById('mantra').innerText = `Good morning, ${username}`;
-        } else if (time >= 12 && time < 16) {
-            document.getElementById('mantra').innerText = `Good afternoon, ${username}`;
-        } else {
-            document.getElementById('mantra').innerText = `Good evening, ${username}`;
-        }
-    } else {
-        document.getElementById('mantra').innerText = mantra;
     }
 })();
 
