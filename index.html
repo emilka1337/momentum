@@ -134,43 +134,12 @@
             </section>
 
             <section class="footer-right">
-                <div class="todo-container">
-                    <section class="todo">
-                        <ul>
-                            <li id="todo-0" class="todo-list-item">
-                                <input class="checkbox" type="checkbox" id="checkbox-0"
-                                    onclick="ChangeToDoListDecoration()">
-                                <span>Закончить урок по логин-форме</span>
-                                <section class="list-button-container">
-                                    <button value="0" id="list-button" onclick="RemoveToDoListElement(value)"><i
-                                            class="fas fa-times"></i></button>
-                                </section>
-                            </li>
-                            <li id="todo-1" class="todo-list-item">
-                                <input class="checkbox" type="checkbox" id="checkbox-1"
-                                    onclick="ChangeToDoListDecoration()">
-                                <span>Проверить чекбоксы</span>
-                                <section class="list-button-container">
-                                    <button value="1" id="list-button" onclick="RemoveToDoListElement(value)"><i
-                                            class="fas fa-times"></i></button>
-                                </section>
-                            </li>
-                            <li id="todo-2" class="todo-list-item">
-                                <input class="checkbox" type="checkbox" id="checkbox-2"
-                                    onclick="ChangeToDoListDecoration()">
-                                <span>Заебумба, всё работает</span>
-                                <section class="list-button-container">
-                                    <button value="2" id="list-button" onclick="RemoveToDoListElement(value)"><i
-                                            class="fas fa-times"></i></button>
-                                </section>
-                            </li>
-                        </ul>
-                        <section class="create-todo">
-                            <button>New Task</button>
-                        </section>
-                    </section>
+                <div id="toDo" class="todo-container">
+                    <ul id="toDoList" class="todo-list">
+                        <!-- ToDos will appear here -->
+                    </ul>
                 </div>
-                <button onfocus="ShowToDoList()">Todo</button>
+                <button id="toDoButton">Todo</button>
             </section>
 
         </footer>

@@ -51,13 +51,14 @@ function createElement(...elems) {
 
 function setStyles(elem, ...styles) {
     if (typeof (elem) == 'string') {
-        if (elem[0] == '#') {
-            elem = elem.split('');
-            elem.shift();
-            elem = elem.join('');
+        elem = elem.split('');
+        let selector = elem.splice(0, 1);
+        elem = elem.join('');
+
+        if (selector == '#') {
             elem = document.getElementById(elem);
         }
-        else if (elem[0] == '.') {
+        else if (selector == '.') {
             elem = document.getElementsByClassName(elem);
 
             for (let className of elem) {
@@ -90,6 +91,7 @@ $("#settings").click(function () {
     $("#settings-menu").toggle(200);
 })
 
+//#region Main Focus
 function addMainFocus() {
     let date = new Date;
     let focus = document.getElementById('focusInput').value;
@@ -146,7 +148,9 @@ function striketroughMainFocus() {
 document.getElementById('focusInput').addEventListener('blur', addMainFocus);
 document.getElementById('mainFocusDelete').addEventListener('click', removeMainFocus);
 document.getElementById('mainFocusCheckbox').addEventListener('click', striketroughMainFocus);
+//#endregion
 
+//#region Quote and Mantra
 function setQuote() {                   // Установить цитату
     let quotes = [
         {
@@ -184,6 +188,10 @@ function setQuote() {                   // Установить цитату
         {
             quote: "“There are always limits, and there are always opportunities. The ones we rehearse and focus on are the ones that shape our attitude and our actions.”",
             author: "Seth Godin"
+        },
+        {
+            quote: "“Progress is impossible without change, and those who cannot change their minds cannot change anything.”",
+            author: "George Bernard Shaw"
         }
     ];
     let random = getRandom(0, quotes.length);
@@ -198,13 +206,14 @@ function setQuote() {                   // Установить цитату
     }, 300);
 } setQuote();
 
-function setMantra() {
+function setMantra() {                  // Установить мантру
     let mantras = [
         'Greeting',
         'Be yourself.',
         'Be present.',
         'Be kind to yourself.',
         'Spread your wings.',
+        'Smile, breath and go slowly.',
 
     ];
 
@@ -236,7 +245,9 @@ function setMantra() {
     }, 300);
 
 } setMantra();
+//#endregion
 
+//#region Bookmarks
 function addItemToBookmarks(name, url) {    // Записать закладку в "базу данных"
     if (!localStorage.getItem('bookmarks')) {
         let bookmarks = [];
@@ -283,14 +294,12 @@ function pushItemToBookmarks(bookmark, index, imgLink) {    // Добавлен�
     let [li, a, div, button, i] = createElement('li', 'a', 'div', 'button', 'i');   // Деструктурирующее присваивание
 
     setStyles(li, 'position', 'relative');
-    // li.style.position = 'relative';
     li.id = `bookmark${index}`;
     li.onmouseover = () => { document.getElementById(`removeBookmark${index}`).style.opacity = 1 };
     li.onmouseleave = () => { document.getElementById(`removeBookmark${index}`).style.opacity = 0 };
     a.setAttribute('href', bookmark.url);
     div.innerHTML = `<img src = https://www.google.com/s2/favicons?domain=${imgLink} style="margin-right: 5px;"> ${bookmark.name}`;
     setStyles(div, 'padding', '1px 0px');
-    // div.style.padding = '1px 0px';
     button.setAttribute('value', index);
     button.id = `removeBookmark${index}`;
 
@@ -299,30 +308,16 @@ function pushItemToBookmarks(bookmark, index, imgLink) {    // Добавлен�
         'float', 'right',
         'padding', '0px',
         'position', 'absolute',
-        'top', '0px',
+        'top', '4.5px',
         'right', '10px',
         'zIndex', '1',
         'opacity', '0',
         'transition', '0.2s'
     );
-    // let buttonStyles = {
-    //     'float': 'right',
-    //     'padding': '0px',
-    //     'position': 'absolute',
-    //     'top': '0px',
-    //     'right': '10px',
-    //     'zIndex': '1',
-    //     'opacity': '0',
-    //     'transition': '0.2s'
-    // }
-    // for (let key in buttonStyles) {
-    //     button.style[key] = buttonStyles[key];
-    // };
     button.setAttribute('value', index);
     button.setAttribute('onclick', 'removeItemFromBookmarks(this.value)');
     i.className = 'fas fa-times';
     setStyles(i, 'color', '#ffffffb0');
-    // i.style.color = '#ffffffb0';
 
     linksList.appendChild(li);
     li.appendChild(a);
@@ -353,6 +348,7 @@ function removeItemFromBookmarks(index) {       // Удаление заклад
 $('#links').click(() => {
     $('#linksDropdown').toggle(200);
 });
+//#endregion
 
 //#region Searchbar conditions
 document.getElementById('search').onfocus = () => {
@@ -387,6 +383,121 @@ document.getElementById('searchButton').addEventListener('keypress', function (e
     }
 });
 //#endregion
+
+// #region ToDo
+$('#toDoButton').click(() => {
+    $('#toDo').toggle(200);
+});
+
+function createToDo() {                     // Запрос напоминания и сохранение в localStorage
+    let toDoText = prompt('Введите напоминание');
+
+    let toDo = {
+        'text': toDoText,
+        'checked': false
+    };
+
+    if (!toDo) {
+        return
+    }
+
+    if (!localStorage.getItem('todo')) {
+        let toDos = [];
+        toDos.push(toDo);
+        localStorage.setItem('todo', JSON.stringify(toDos));
+    } else {
+        let toDos = JSON.parse(localStorage.getItem('todo'));
+        toDos.push(toDo);
+        localStorage.setItem('todo', JSON.stringify(toDos));
+    }
+
+    return toDo;
+}
+
+function createToDoItem(toDoText, index) {
+    let [li, input, p, button, i] = createElement('li', 'input', 'p', 'button', 'i');
+
+    li.id = `toDo${index}`;
+
+    input.setAttribute('type', 'checkbox');
+    input.setAttribute('onclick', `checkToDo(this.checked, ${index})`);
+    input.className = 'todo-checkbox'
+    input.id = `toDoCheckbox${index}`;
+
+    p.id = `toDoText${index}`;
+    p.innerText = toDoText;
+    setStyles(p,
+        'display', 'inline',
+        'color', 'white'
+    );
+
+    button.setAttribute('value', index);
+    button.setAttribute('onclick', `removeToDo(this.value)`);
+
+    i.className = 'fas fa-times';
+    setStyles(i,
+        'color', 'white'
+    );
+
+
+    li.appendChild(input);
+    li.appendChild(p);
+    li.appendChild(button);
+    button.appendChild(i);
+
+    return li;
+}
+
+function pushToDoToList(toDoText, index) {
+    let toDoList = document.getElementById('toDoList');
+    let li = createToDoItem(toDoText, index);
+
+    toDoList.appendChild(li);
+}
+
+function createToDoButton() {            // Создание кнопки "Добавить напоминание"
+    let button = document.createElement('button');
+    button.id = 'addToDo';
+    button.innerHTML = 'Add <i class="fas fa-plus"></i>';
+    button.setAttribute('onclick', `addNewToDo()`);
+    setStyles(
+        button,
+        'borderRadius', '5px'
+    )
+
+    return button;
+}
+
+function addNewToDo() {                  // Создание нового напоминания
+    let todo = createToDo();
+    let toDos = JSON.parse(localStorage.getItem('todo'));
+
+    pushToDoToList(todo.text, toDos.length - 1);
+}
+
+function checkToDo(checked, index) {
+    let toDos = JSON.parse(localStorage.getItem('todo'));
+
+    if (checked) {
+        document.getElementById(`toDoText${index}`).style.textDecoration = 'line-through';
+        toDos[index].checked = true;
+    } else {
+        document.getElementById(`toDoText${index}`).style.textDecoration = 'none';
+        toDos[index].checked = false;
+    }
+
+    localStorage.setItem('todo', JSON.stringify(toDos))
+}
+
+function removeToDo(index) {
+    let toDos = JSON.parse(localStorage.getItem('todo'));
+    toDos.splice(index, 1);
+    localStorage.setItem('todo', JSON.stringify(toDos));
+
+    document.getElementById('toDoList').removeChild(document.getElementById(`toDo${index}`));
+}
+//#endregion
+
 
 setInterval(setTime, 1000);
 setInterval(ChangeBackground(), 60000);
@@ -428,3 +539,31 @@ setInterval(setMantra, 45000);
         }
     }
 })();
+
+(function () {
+    let toDos = JSON.parse(localStorage.getItem('todo'));
+    let counter = 0;
+
+    if (toDos) {
+        for (let todo of toDos) {
+            pushToDoToList(todo.text, counter);
+            counter++;
+        }
+    }
+
+    document.getElementById('toDo').appendChild(createToDoButton());
+}());
+
+(function () {                      // Проверка чекбоксов в ToDo-листе
+    let checkboxes = document.getElementsByClassName('todo-checkbox');
+    let toDos = JSON.parse(localStorage.getItem('todo'))
+    let index = 0;
+
+    for (let todo of toDos) {
+        if (todo.checked) {
+            checkboxes[index].checked = true;
+            document.getElementById(`toDoText${index}`).style.textDecoration = 'line-through';
+        }
+        index++;
+    }
+}());
