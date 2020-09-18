@@ -99,6 +99,11 @@ $("#settings").click(function () {
 function addMainFocus() {
     let date = new Date;
     let focus = document.getElementById('focusInput').value;
+    if (focus.length > 50) {
+        alert('Focus length is too long... Max length is 50 symbols');
+        document.getElementById('focusInput').value = '';
+        return;
+    }
     let day = date.getDate();
     let mainFocus = {
         'focus': focus,
@@ -402,7 +407,7 @@ function createToDo() {                     // Запрос напоминани
         'checked': false
     };
 
-    if (!toDo) {
+    if (!toDoText) {
         return
     }
 
@@ -473,6 +478,8 @@ function createToDoButton() {            // Создание кнопки "До�
     button.id = 'addToDo';
     button.innerHTML = 'Add <i class="fas fa-plus"></i>';
     button.setAttribute('onclick', `addNewToDo()`);
+    button.onmouseover = () => document.getElementById('addToDo').style.opacity = '1';
+    button.onmouseout = () => document.getElementById('addToDo').style.opacity = '0.8';
     if (!toDos || !toDos[0]) {
         setStyles(
             button,
@@ -480,7 +487,8 @@ function createToDoButton() {            // Создание кнопки "До�
             'position', 'absolute',
             'left', '90px',
             'bottom', '80px',
-            'transition', '300ms'
+            'transition', '300ms',
+            'opacity', '0.7'
         )
     } else {
         setStyles(
@@ -488,7 +496,9 @@ function createToDoButton() {            // Создание кнопки "До�
             'borderRadius', '5px',
             'position', 'absolute',
             'left', '0',
-            'bottom', '0'
+            'bottom', '0',
+            'transition', '300ms',
+            'opacity', '0.7'
         )
     }
 
@@ -498,6 +508,11 @@ function createToDoButton() {            // Создание кнопки "До�
 
 function addNewToDo() {                  // Создание нового напоминания
     let todo = createToDo();
+
+    if (!todo) {
+        return;
+    }
+
     let toDos = JSON.parse(localStorage.getItem('todo'));
 
     setStyles(

@@ -1,0 +1,444 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* background-image: url(./img/01.jpg); */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: rgb(0, 0, 0);
+    transition: 1s;
+}
+*::selection {
+    background: none;
+}
+* {
+    cursor: default;
+}
+button, i, input {
+    cursor: pointer;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    font-family: "Neue Haas Grotesk Text Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.button-container {
+    display: none;
+}
+.menu-buttons {
+    background-color: #00000000;
+    border: 0px solid #dddddddd;
+    border-radius: 100px;
+}
+.menu-buttons:hover {
+    background-color: #dddddddd;
+}
+.menu-buttons i {
+    color: #ffffff;
+    font-size: 20px;
+}
+.container header .header-container {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    height: 50px;
+}
+.container header .header-container .header-left {
+    display: flex;
+    align-items: center;
+}
+.container header .header-container .header-left .links button {
+    font-family: "Neue Haas Grotesk Text Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: #00000000;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 12px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.container header .header-container .header-left .links button:hover {
+    color: #dddddd;
+}
+.container header .header-container .header-left .links .links-dropdown {
+    display: none;
+    position: absolute;
+    left: 5px;
+    background-color: #222222c9;
+    width: 200px;
+    border-radius: 5px;
+}
+.container header .header-container .header-left .links .links-dropdown ul {
+    list-style-type: none;
+    margin-left: 20px;
+    padding: 0;
+}
+.container header .header-container .header-left .links .links-dropdown ul li {
+    padding: 2px 0px;
+}
+.container header .header-container .header-left .links .links-dropdown ul li a {
+    color: #bdbdbd;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+.container header .header-container .header-left .links .links-dropdown ul li button {
+    transition: 0.2s;
+}
+.container header .header-container .header-left .links .links-dropdown ul li button:hover i {
+    color: #ffffff;
+}
+.container header .header-container .header-left .links .links-dropdown ul li a div:hover .remove-bookmark{
+    opacity: 1;
+}
+.container header .header-container .header-left .links .links-dropdown ul li a:hover {
+    color: #ffffff;
+}
+#addBookmarkButton {
+    transition: 0.2s;
+    padding: 2px;
+    color: #ffffff8f;
+}
+#addBookmarkButton:hover {
+    color: #ffffff;
+}
+.container header .header-container .header-left .searchbar {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    border-bottom: 1px solid #ffffff;
+    transition: 0.3s;
+    opacity: 0.3;
+}
+.container header .header-container .header-left .searchbar:hover {
+    opacity: 1;
+}
+.container header .header-container .header-left .searchbar form {
+    cursor: text;
+}
+.container header .header-container .header-left .searchbar i {
+    padding-right: 10px;
+    color: #ffffff;
+    font-size: 16px;
+}
+.container header .header-container .header-left .searchbar input {
+    border: none;
+    outline: none;
+    padding: 5px;
+    background-color: #00000000;
+    color: #ffffff;
+    font-family: "Neue Haas Grotesk Text Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+}
+.container header .header-container .header-left .searchbar button {
+    border: none;
+    background-color: #00000000;
+    font-weight: 600;
+    outline: none;
+    color: #ffffff;
+    cursor: pointer;
+}
+.container header .header-container .header-right {
+    display: flex;
+    position: absolute;
+    right: 0;
+}
+.container header .header-container .header-right .weather-container {
+    display: flex;
+    flex-direction: column;
+    padding-right: 20px;
+    /* color: #ffffff; */
+}
+.container header .header-container .header-right .weather-container h2 {
+    font-weight: 300;
+    margin: 5px 0px;
+    color: #ffffff;
+}
+.container header .header-container .header-right .weather-container p {
+    text-align: right;
+    margin: 10px 0px;
+    color: #ffffff;
+    margin: 0px;
+    font-size: 14px;
+}
+
+.container main {
+    display: flex;
+    justify-content: center;
+    /* margin-top: 233px; */
+    margin-top: 25vh;
+}
+.container main .main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+}
+.container main .main-container .time {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+.container main .main-container .time h1 {
+    /* font-size: 160px; */
+    font-size: 22vh;
+    font-weight: 400;
+    margin: 0;
+    padding-left: 70px;
+    padding-right: 70px;
+    color: #ffffff;
+}
+.container main .main-container .time:hover .button-container {
+    display: block;
+}
+.container main .main-container .time .button-container {
+    position: absolute;
+    right: 0px;
+}
+.container main .main-container .quote-container .main-quote h1{
+    margin: 0;
+    padding: 20px 0px;
+    color: #ffffff;
+    /* font-size: 42px; */
+    font-size: 5vh;
+    font-weight: 400;
+    transition: 300ms;
+}
+.container main .main-container .main-focus-container .main-focus-set {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+.container main .main-container .main-focus-container .main-focus-set .focus-heading h1 {
+    font-weight: 300;
+    /* font-size: 36px; */
+    font-size: 4vh;
+    color: white;
+    margin: 0px, 15px;
+}
+.container main .main-container .main-focus-container .main-focus-set .focus-input {
+    display: flex;
+    justify-content: center;
+}
+.container main .main-container .main-focus-container .main-focus-set .focus-input input {
+    width: 95%;
+    text-align: center;
+    font-size: 25px;
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    border-bottom: 2px solid white;
+    outline: none;
+    opacity: 0.8;
+    transition: 300ms;
+}
+.container main .main-container .main-focus-container .main-focus-set .focus-input input:focus {
+    border-bottom: 2px solid white;
+    opacity: 1;
+}
+.container main .main-container .main-focus-container .main-focus-ready {
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+}
+.container main .main-container .main-focus-container .main-focus-ready #mainFocusCheckbox {
+    opacity: 0;
+    transition: 200ms;
+    background-color: rgba(0, 0, 0, 0);
+    color: violet;
+    border: 1px solid white;
+    border-radius: 2px;
+}
+.container main .main-container .main-focus-container .main-focus-ready #mainFocusText {
+    color: white;
+    margin: 20px 20px;
+    font-size: 36px;
+}
+.container main .main-container .main-focus-container .main-focus-ready #mainFocusDelete {
+    opacity: 0;
+    transition: 200ms;
+    background: rgba(0, 0, 0, 0);
+    border: none;
+    cursor: pointer;
+}
+.container main .main-container .main-focus-container .main-focus-ready:hover #mainFocusCheckbox {
+    opacity: 1;
+}
+.container main .main-container .main-focus-container .main-focus-ready:hover #mainFocusDelete {
+    opacity: 1;
+}
+.container main .main-container .main-focus-container .main-focus-ready button i {
+    color: white;
+    font-size: 20px;
+}
+
+.container footer {
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    /* margin-top: 115px; */
+}
+.container footer .footer-left {
+    display: flex;
+    flex-direction: row;
+    width: 25%;
+    /* color: #ffffff; */
+}
+.container footer .footer-left .settings {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 10px;
+}
+.container footer .footer-left .photo-description {
+    display: flex;
+    align-items: flex-end;
+    font-weight: 600;
+    color: #ffffff;
+}
+.container footer .footer-left .settings button:hover i{
+    transform: rotate(270deg) scale(1.2);
+    transition: 0.4s;
+}
+/* ////////////////////////////////////////////////////////////////////////////// */
+.container footer .footer-left .settings-menu {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.90);
+    border-radius: 5px;
+    position: absolute;
+    left: 10px;
+    bottom: 50px;
+    width: 300px;
+}
+.container footer .footer-left .settings-menu ul {
+    list-style-type: none;
+    padding-left: 7px;
+}
+.container footer .footer-left .settings-menu ul {
+    display: flex;
+    flex-direction: column;
+}
+.container footer .footer-left .settings-menu ul li h3 {
+    background: none;
+    color: #ffffff;
+    border: 0;
+    margin: 5px 0px;
+    font-size: 20px;
+}
+.container footer .footer-left .settings-menu ul li ul li .setting {
+    padding: 5px;
+}
+.container footer .footer-left .settings-menu ul li ul li .setting label {
+    color: #ffffff;
+    padding: 10px, 0px;
+}
+.container footer .footer-left .settings-menu ul li ul li .setting input {
+    float: right;
+}
+/* ///////////////////////////////////////////////////////////////////////////////////////// */
+.container footer .footer-left .photo-description p {
+    margin: 10px;
+}
+.container footer .footer-center {
+    width: 50%;
+    text-align: center;
+    font-weight: 600;
+    color: #ffffff;
+}
+.container footer .footer-center .quote-container {
+    position: relative;
+}
+.container footer .footer-center .quote-container .quote {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: 0px;
+    margin: 0px;
+    font-weight: 300;
+    /* font-size: 20px; */
+    font-size: 2.5vh;
+    transition: 0.3s;
+}
+.container footer .footer-center .quote-container .quote-author {
+    opacity: 0;
+    transition: 0.3s;
+}
+.container footer .footer-center:hover .quote-container .quote {
+    bottom: 30px;
+}
+.container footer .footer-center:hover .quote-container .quote-author {
+    opacity: 1;
+}
+.container footer .footer-right {
+    display: flex;
+    justify-content: flex-end;
+    width: 25%;
+}
+.container footer .footer-right{
+    display: flex;
+    align-items: flex-end;
+}
+
+.container footer .footer-right button {
+    padding: 10px;
+}
+
+.container footer .footer-right button, 
+.container footer .footer-left .settings button {
+    border: none;
+    background: none;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 16px;
+    outline: none;
+    cursor: pointer;
+}
+.container footer .footer-right .todo-container{
+    display: none;
+    position: absolute;
+    bottom: 50px;
+    right: 10px;
+    min-height: 200px;
+    min-width: 250px;
+    max-width: 300px;
+    background-color: rgba(0, 0, 0, 0.90);
+    border-radius: 5px;
+}
+.container footer .footer-right .todo-container .todo-header {
+    color: white;
+    margin: 10px 0px 0px 10px;
+    font-weight: 400;
+}
+.container footer .footer-right .todo-container .todo-list {
+    list-style-type: none;
+    padding-left: 10px;
+    margin-top: 0px;
+}
+
+
+@media screen and (max-height: 477px) {
+    .container footer {
+        display: none;
+    }
+} 
+@media screen and (max-height: 400px) {
+    .container main .main-container .time h1 {
+        display: none;
+    }
+} 
+@media screen and (max-width: 540px) {
+    .container header .header-container .header-left .searchbar input {
+        width: 100px;
+    }
+}
+
+@keyframes clocks {
+    from {opacity: 1;}
+    to {opacity: 0.7;}
+}
