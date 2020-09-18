@@ -418,6 +418,7 @@ function createToDoItem(toDoText, index) {
     let [li, input, p, button, i] = createElement('li', 'input', 'p', 'button', 'i');
 
     li.id = `toDo${index}`;
+    li.className = 'todo-item';
 
     input.setAttribute('type', 'checkbox');
     input.setAttribute('onclick', `checkToDo(this.checked, ${index})`);
@@ -428,15 +429,19 @@ function createToDoItem(toDoText, index) {
     p.innerText = toDoText;
     setStyles(p,
         'display', 'inline',
-        'color', 'white'
+        'color', 'white',
+        'marginLeft', '5px'
     );
 
     button.setAttribute('value', index);
     button.setAttribute('onclick', `removeToDo(this.value)`);
 
     i.className = 'fas fa-times';
+    i.id = `removeToDo${index}`;
     setStyles(i,
-        'color', 'white'
+        'color', 'white',
+        'opacity', '0',
+        'transition', '300ms'
     );
 
 
@@ -462,7 +467,10 @@ function createToDoButton() {            // Создание кнопки "До�
     button.setAttribute('onclick', `addNewToDo()`);
     setStyles(
         button,
-        'borderRadius', '5px'
+        'borderRadius', '5px',
+        'position', 'absolute',
+        'left', '0',
+        'bottom', '0'
     )
 
     return button;
@@ -566,4 +574,17 @@ setInterval(setMantra, 45000);
         }
         index++;
     }
+}());
+
+(function () {
+    let index = 0;
+    let listItems = document.getElementsByClassName('todo-item');
+    
+    for (let elem of listItems) {
+        elem.setAttribute('onmouseover', `document.getElementById('removeToDo${index}').style.opacity = '1';`)
+        elem.setAttribute('onmouseout', `document.getElementById('removeToDo${index}').style.opacity = '0';`)
+
+        index++;
+    }
+
 }());
