@@ -419,6 +419,8 @@ function createToDoItem(toDoText, index) {
 
     li.id = `toDo${index}`;
     li.className = 'todo-item';
+    li.setAttribute('onmouseover', `document.getElementById('removeToDo${index}').style.opacity = '1';`);
+    li.setAttribute('onmouseout', `document.getElementById('removeToDo${index}').style.opacity = '0';`);
 
     input.setAttribute('type', 'checkbox');
     input.setAttribute('onclick', `checkToDo(this.checked, ${index})`);
@@ -462,16 +464,29 @@ function pushToDoToList(toDoText, index) {
 
 function createToDoButton() {            // Создание кнопки "Добавить напоминание"
     let button = document.createElement('button');
+    let toDos = JSON.parse(localStorage.getItem('todo'));
     button.id = 'addToDo';
     button.innerHTML = 'Add <i class="fas fa-plus"></i>';
     button.setAttribute('onclick', `addNewToDo()`);
-    setStyles(
-        button,
-        'borderRadius', '5px',
-        'position', 'absolute',
-        'left', '0',
-        'bottom', '0'
-    )
+    if (!toDos || !toDos[0]) {
+        setStyles(
+            button,
+            'borderRadius', '5px',
+            'position', 'absolute',
+            'left', '90px',
+            'bottom', '80px',
+            'transition', '300ms'
+        )
+    } else {
+        setStyles(
+            button,
+            'borderRadius', '5px',
+            'position', 'absolute',
+            'left', '0',
+            'bottom', '0'
+        )
+    }
+
 
     return button;
 }
@@ -480,6 +495,13 @@ function addNewToDo() {                  // Создание нового нап
     let todo = createToDo();
     let toDos = JSON.parse(localStorage.getItem('todo'));
 
+    setStyles(
+        '#addToDo',
+        'borderRadius', '5px',
+        'position', 'absolute',
+        'left', '0',
+        'bottom', '0'
+    )
     pushToDoToList(todo.text, toDos.length - 1);
 }
 
@@ -502,6 +524,16 @@ function removeToDo(index) {
     toDos.splice(index, 1);
     localStorage.setItem('todo', JSON.stringify(toDos));
 
+    if (!toDos || !toDos[0]) {
+        setStyles(
+            '#addToDo',
+            'borderRadius', '5px',
+            'position', 'absolute',
+            'left', '90px',
+            'bottom', '80px',
+            'transition', '300ms'
+        );
+    }
     document.getElementById('toDoList').removeChild(document.getElementById(`toDo${index}`));
 }
 //#endregion
@@ -567,24 +599,13 @@ setInterval(setMantra, 45000);
     let toDos = JSON.parse(localStorage.getItem('todo'))
     let index = 0;
 
-    for (let todo of toDos) {
-        if (todo.checked) {
-            checkboxes[index].checked = true;
-            document.getElementById(`toDoText${index}`).style.textDecoration = 'line-through';
+    if (toDos) {
+        for (let todo of toDos) {
+            if (todo.checked) {
+                checkboxes[index].checked = true;
+                document.getElementById(`toDoText${index}`).style.textDecoration = 'line-through';
+            }
+            index++;
         }
-        index++;
     }
-}());
-
-(function () {
-    let index = 0;
-    let listItems = document.getElementsByClassName('todo-item');
-    
-    for (let elem of listItems) {
-        elem.setAttribute('onmouseover', `document.getElementById('removeToDo${index}').style.opacity = '1';`)
-        elem.setAttribute('onmouseout', `document.getElementById('removeToDo${index}').style.opacity = '0';`)
-
-        index++;
-    }
-
 }());
