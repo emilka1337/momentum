@@ -402,7 +402,7 @@ button, i, input {
     bottom: 50px;
     right: 10px;
     min-height: 200px;
-    max-height: 400px;
+    /* max-height: 400px; */
     min-width: 250px;
     max-width: 300px;
     background-color: rgba(0, 0, 0, 0.90);
@@ -412,10 +412,6 @@ button, i, input {
     list-style-type: none;
     padding-left: 10px;
 }
-
-
-
-
 
 @media screen and (max-height: 634px) {
     .container main {

@@ -22,7 +22,11 @@ function setTime() {
                 document.getElementById('clocks').innerHTML = `${hours}:${minutes}`;
             }
         } else {
-            document.getElementById('clocks').innerHTML = `${hours - 12}:${minutes}`;
+            if (minutes < 10) {
+                document.getElementById('clocks').innerHTML = `${hours - 12}:0${minutes}`;
+            } else {
+                document.getElementById('clocks').innerHTML = `${hours - 12}:${minutes}`;
+            }
         }
     } else {
         if (hours < 10 && minutes < 10) {
@@ -207,6 +211,8 @@ function setQuote() {                   // Установить цитату
 } setQuote();
 
 function setMantra() {                  // Установить мантру
+    let username = localStorage.getItem('username');
+
     let mantras = [
         'Greeting',
         'Be yourself.',
@@ -214,10 +220,9 @@ function setMantra() {                  // Установить мантру
         'Be kind to yourself.',
         'Spread your wings.',
         'Smile, breath and go slowly.',
+        `Be gentle to yousrself, ${username}`,
 
     ];
-
-    let username = localStorage.getItem('username');
 
     let random = getRandom(0, mantras.length);
     let mantra = mantras[random];
@@ -414,7 +419,7 @@ function createToDo() {                     // Запрос напоминани
     return toDo;
 }
 
-function createToDoItem(toDoText, index) {
+function createToDoItem(toDoText, index) {  // Создание элемента списка со всеми стилями
     let [li, input, p, button, i] = createElement('li', 'input', 'p', 'button', 'i');
 
     li.id = `toDo${index}`;
@@ -455,7 +460,7 @@ function createToDoItem(toDoText, index) {
     return li;
 }
 
-function pushToDoToList(toDoText, index) {
+function pushToDoToList(toDoText, index) {  // Добавление элемента в список дел
     let toDoList = document.getElementById('toDoList');
     let li = createToDoItem(toDoText, index);
 
@@ -505,7 +510,7 @@ function addNewToDo() {                  // Создание нового нап
     pushToDoToList(todo.text, toDos.length - 1);
 }
 
-function checkToDo(checked, index) {
+function checkToDo(checked, index) {    // Проверка чекбоксов в ToDo списке
     let toDos = JSON.parse(localStorage.getItem('todo'));
 
     if (checked) {
@@ -519,7 +524,7 @@ function checkToDo(checked, index) {
     localStorage.setItem('todo', JSON.stringify(toDos))
 }
 
-function removeToDo(index) {
+function removeToDo(index) {            // Удаление элемента из списка ToDo и из localStorage
     let toDos = JSON.parse(localStorage.getItem('todo'));
     toDos.splice(index, 1);
     localStorage.setItem('todo', JSON.stringify(toDos));
@@ -542,7 +547,7 @@ function removeToDo(index) {
 setInterval(setTime, 1000);
 setInterval(ChangeBackground(), 60000);
 setInterval(setQuote, 30000);
-setInterval(setMantra, 45000);
+setInterval(setMantra, 100000);
 
 (function () {                                       // Проверка пользователя
     if (!localStorage.getItem('username')) {
@@ -580,7 +585,7 @@ setInterval(setMantra, 45000);
     }
 })();
 
-(function () {
+(function () {                                      // Динамичная генерация ToDo-листа
     let toDos = JSON.parse(localStorage.getItem('todo'));
     let counter = 0;
 
@@ -594,7 +599,7 @@ setInterval(setMantra, 45000);
     document.getElementById('toDo').appendChild(createToDoButton());
 }());
 
-(function () {                      // Проверка чекбоксов в ToDo-листе
+(function () {                                      // Проверка чекбоксов в ToDo-листе
     let checkboxes = document.getElementsByClassName('todo-checkbox');
     let toDos = JSON.parse(localStorage.getItem('todo'))
     let index = 0;
