@@ -5,8 +5,7 @@
         document.getElementById('breathing').checked = true;
         changeClocksBreathing();
     }
-}()
-
+}();
 
 function changeClocksBreathing() {
     if (document.getElementById('breathing').checked) {
@@ -17,7 +16,6 @@ function changeClocksBreathing() {
         localStorage.setItem('breathing', false);
     }
 }
-
 
 function changeClocksFormat() {
     if (document.getElementById('AM-PM').checked) {

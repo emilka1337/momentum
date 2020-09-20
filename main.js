@@ -54,17 +54,10 @@ function createElement(...elems) {
 }
 
 function setStyles(elem, ...styles) {
-    if (typeof (elem) == 'string') {
-        elem = elem.split('');
-        let selector = elem.splice(0, 1);
-        elem = elem.join('');
+    if (typeof(elem) == 'string') {
+        elem = document.querySelector(elem);
 
-        if (selector == '#') {
-            elem = document.getElementById(elem);
-        }
-        else if (selector == '.') {
-            elem = document.getElementsByClassName(elem);
-
+        if (elem.length >= 0) {
             for (let className of elem) {
                 for (let i = 0; i < styles.length; i += 2) {
                     if (i % 2 == 0) {
@@ -133,6 +126,7 @@ function removeMainFocus() {
     document.getElementById('mainFocusCheckbox').checked = false;
 
     localStorage.removeItem('mainFocus');
+    localStorage.setItem('mainFocusChecked', 0);
 }
 
 setInterval(() => {
@@ -201,6 +195,14 @@ function setQuote() {                   // Установить цитату
         {
             quote: "“Progress is impossible without change, and those who cannot change their minds cannot change anything.”",
             author: "George Bernard Shaw"
+        },
+        {
+            quote: "“Opportunities to find our deeper powers come when life seems most challenging.”",
+            author: "Joseph Campbell"
+        },
+        {
+            quote: "",
+            author: ""
         }
     ];
     let random = getRandom(0, quotes.length);
@@ -480,26 +482,25 @@ function createToDoButton() {            // Создание кнопки "До�
     button.setAttribute('onclick', `addNewToDo()`);
     button.onmouseover = () => document.getElementById('addToDo').style.opacity = '1';
     button.onmouseout = () => document.getElementById('addToDo').style.opacity = '0.8';
+    setStyles(
+        button,
+        'borderRadius', '5px',
+        'position', 'absolute',
+        'transition', '300ms',
+        'opacity', '0.7'
+    )
     if (!toDos || !toDos[0]) {
         setStyles(
             button,
-            'borderRadius', '5px',
-            'position', 'absolute',
             'left', '90px',
             'bottom', '80px',
-            'transition', '300ms',
-            'opacity', '0.7'
-        )
+        );
     } else {
         setStyles(
             button,
-            'borderRadius', '5px',
-            'position', 'absolute',
             'left', '0',
             'bottom', '0',
-            'transition', '300ms',
-            'opacity', '0.7'
-        )
+        );
     }
 
 
