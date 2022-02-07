@@ -201,9 +201,13 @@ function setQuote() {                   // Установить цитату
             author: "Joseph Campbell"
         },
         {
-            quote: "",
-            author: ""
-        }
+            quote: "“Be focused. Be determined. Be hopeful. Be empowered.”",
+            author: "Michelle Obama "
+        },
+        // {
+        //     quote: "",
+        //     author: ""
+        // }
     ];
     let random = getRandom(0, quotes.length);
 
@@ -228,7 +232,7 @@ function setMantra() {                  // Установить мантру
         'Spread your wings.',
         'Smile, breath and go slowly.',
         `Be gentle to yousrself, ${username}`,
-
+        'Remember who you are.',
     ];
 
     let random = getRandom(0, mantras.length);
